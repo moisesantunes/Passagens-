@@ -1,0 +1,22 @@
+<% layout('boilerplate') -%>
+<%- include('partials/nav.ejs') %>
+<h1 style="text-align:center">Lista de passageiros</h1>
+<br>
+
+<section class="w3-container " >
+<% passageiros.forEach((item) => { %>
+	<div class="w3-card w3-padding w3-margin-bottom " style="position:relative" >
+	     <% if(Number(item.total)>=(item.diasq*evento.valorDia)){ %>
+               <span class=""style="position:absolute;top:0;right:0">&#9996;</span> 
+            <% } %> 
+    	<h4 class="" ><%= item.nome %><span class="" style="margin-right:0.25em;color:red; float:right"> <%= item.diasq %></span></h4>
+		<div>
+		    <% item.diasd.forEach((dia) => { %>
+		       <p class="" > <%= dia  %></p>
+		    <% }); %>
+		</div>
+		<a class="w3-border w3-padding-small  w3-round-xxlarge" style="text-decoration:none" href="/passageiro/<%= item.id %>">&#128451;</a>
+
+	</div>
+<% }); %>
+</section>

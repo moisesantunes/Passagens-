@@ -1,0 +1,47 @@
+<% layout('boilerplate') -%>
+
+<%- include('partials/nav.ejs') %>
+
+<h1 class="w3-center">Editar Passageiro</h1>
+<hr>
+<br>
+<section class="w3-container">
+    <form method="post" action="/editpassageiro/<%= pessoa.id %>">
+        <p>
+            <label for="nome"> Nome:</label>
+            <input class="w3-input" type="text" id="nome" name="nome" value="<%= pessoa.nome  %>">
+        </p>
+        <p>
+         <label for="rg" >RG:</label>
+            <input class="w3-input" id="rg" type="text" name="rg" value="<%= pessoa.rg %>">
+        </p>
+        <br>
+         <div>
+            <% lista.forEach((item) => { %>
+            <input class="w3-check" <% if(pessoa.diasd.indexOf(item) != -1){ %>
+                    checked="true"
+                <% } %> 
+                id="<%=item%>" type="checkbox" name="diasd" value="<%=item %>">
+            <label class="w3-large" for="<%= item %>" ><%=item %></label>
+           
+            <br>
+            <% }); %>
+        </div>
+        
+        <p>
+        <label class="" for="parcela" >Pagamento:</label>
+            <input class="w3-input" id="parcela" type="number" name="parcela" >
+        </p>
+        <div class="pagamentos w3-large">
+            <% pessoa.pags.forEach((pag) => { %>
+                 <label class="w3-border w3-padding-small w3-margin-right w3-round-xxlarge" class="w3-large" for="" ><%= pag %>
+                    <input checked="true" class="w3-check" id="" type="checkbox" name="pags" value="<%= pag %>">
+                </label>
+            <% }); %>
+           Total=<%= pessoa.total || 0 %>
+	
+        </div>
+        <br>
+        <button class="w3-button w3-asphalt">Salvar</button>
+    </form>
+</section>

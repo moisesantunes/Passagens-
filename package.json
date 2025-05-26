@@ -1,0 +1,21 @@
+{
+  "name": "pass",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "csv-stringify": "^6.5.2",
+    "csv-writer": "^1.6.0",
+    "ejs-mate": "^4.0.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2",
+    "uniqid": "^5.4.0"
+  }
+}

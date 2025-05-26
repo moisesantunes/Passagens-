@@ -1,0 +1,44 @@
+<% layout('boilerplate') -%>
+<%- include('partials/nav.ejs') %>
+<h1>Novo Passageiro</h1>
+
+<section class="">
+    <%= evento.dataEvento.toLocaleDateString("pt-BR",{timeZone:"UTC"}) %>
+</section>
+
+<section class="w3-container">
+    <form method="post" action="/novopassageiro">
+        <p>
+        <label for="nome"> Nome:</label>
+            <input class="w3-input"type="text" id="nome" name="nome" required="true">
+        </p>
+        <p>
+        <label for="rg" >RG</label>
+            <input class="w3-input" id="rg" type="text" name="rg" placeholder="Ex: 00.000.000-0">
+        </p>
+        
+        <div>
+            <% lista.forEach((item) => { %>
+                <input class="w3-check"id="<%=item%>" type="checkbox" name="diasd" value="<%=item%>">
+                <label  for="<%=item%>" ><%=item%></label>
+            <br>
+            <% }); %>
+        </div>
+        <!--
+        <label for="sexta" >Sexta
+            <input id="sexta" type="checkbox" name="diasd" value="sexta">
+        </label>
+        <label for="sabado" >Sabado
+            <input id="sabado" type="checkbox" name="diasd" value="sabado">
+        </label>
+        <label for="domingo" >Domingo
+            <input id="domingo" type="checkbox" name="diasd" value="domingo">
+        </label>
+        <br>
+    
+        <br>
+        -->
+        <br>
+        <button class="w3-button w3-black" >Salvar</button>
+    </form>
+</section>

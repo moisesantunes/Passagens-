@@ -1,0 +1,14 @@
+<% layout('boilerplate') -%>
+<script src="https://cdn.jsdelivr.net/npm/json-to-csv-export"></script>
+<button onclick='jsonToCsvExport(<%- JSON.stringify(data) %>)'>Salvar</button>
+
+<script>
+    
+    let data = <%- JSON.stringify(data) %>
+    alert(data[0].nome)
+</script>
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
