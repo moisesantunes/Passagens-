@@ -59,15 +59,6 @@ app.set('view engine', 'ejs');
  // so you can render('index')
 //////fim config ejs
 
-/////config csv-writer
-const csvWriter = createCsvWriter({
-    path: '/sdcard/backup.csv',
-    header: ['num', 'nome','rg','dias','total_pago']
-});
-///////fim
-
-
-
 
 //////// Config do evento
 const semana=["Domingo", "Segunda-Feira","Terça-Feira","Quarta-Feira","Quinta-Feira","Sexta-Feira","Sabado"]
@@ -97,40 +88,12 @@ for (var i = 0; i < evento.dias; i++) {
 
 const passageiros=[]
 
-app.get("/export", async (req,res)=>{
-      let lista=[]
-        pessoas = JSON.parse(await fs.readFile("passageiros.json",{encoding:"utf-8"}))
-        pessoas.forEach((p,i)=>{
-            let obj={}
-            obj.num=i+1
-            obj.nome=p.nome;
-            obj.rg=p.rg;
-            obj.dias=p.diass
-            obj.total_pago = p.total
-            lista.push(obj)
-        })
-        let columns={
-            num:"NUM",
-            nome:"NOME",
-            rg:"RG",
-            dias:"DIAS",
-            total_pago:"TOTAL_PAGO",
-            num:"NUM"
-        }
-        console.log("csv",lista)
-        
-      //  console.log(pessoas)
-        //await fs.writeFile("passageiros.json",JSON.stringify(pessoas))
-    res.redirect("/")
-    
-})
-
-
 
 app.get("/estatisticas",async (req,res)=>{
    let pessoas;
    let cont=0
    let obj={}
+   obj.geral={}
     try {
         pessoas = JSON.parse(await fs.readFile("passageiros.json",{encoding:"utf-8"}))
     } catch (e) {
@@ -144,33 +107,25 @@ app.get("/estatisticas",async (req,res)=>{
         return t + p.diasq;
     },0)
     obj.totalEsp= obj.totalPass * evento.valorDia
-  /*
-    obj.sexta = pessoas.filter((dia)=>{
-        return dia.diasd.includes(listadias[0])
-    })//sexta
-    obj.sabado = pessoas.filter((dia)=>{
-        return dia.diasd.includes(listadias[1])
-    })//sabado
-    obj.domingo = pessoas.filter((dia)=>{
-        return dia.diasd.includes(listadias[2])
-    })//domingo
-    */
-    for (var i = 0; i < listadias.length; i++) {
-      if(obj[listadias[i]] == undefined) {
-        obj[listadias[i]]=[]
-      }
-        obj[listadias[i]]= pessoas.filter((dia)=>{
-        return dia.diasd.includes(listadias[i])
+
+  for (var i = 0; i < listadias.length; i++) {
+        let diaRef = listadias[i].split("-").at(1)
+        if (!obj.geral[diaRef]) {
+          obj.geral[diaRef]=[]  
+        }
+        obj.geral[diaRef]=pessoas.filter((dia)=>{
+            return dia.diass.includes(diaRef)
         })
+  }
     
-       // console.log(listadias[i])
-    }
-    
-    
-    //console.log(pessoas)
+   // console.log(pessoas)
     //console.log(listadias)
-    console.log(obj)
-    res.redirect("/")
+    console.log(obj.geral)
+    res.render("estatisticas",{
+        titulo:"ESTATISTICAS",
+        dados:obj,
+        
+    })
 })
 
 app.get('/', async (req, res) => {
