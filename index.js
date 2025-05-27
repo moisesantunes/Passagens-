@@ -90,10 +90,10 @@ const passageiros=[]
 
 
 app.get("/estatisticas",async (req,res)=>{
-   let pessoas;
-   let cont=0
-   let obj={}
-   obj.geral={}
+    let pessoas;
+    let cont=0
+    let obj={}
+    obj.geral={}
     try {
         pessoas = JSON.parse(await fs.readFile("passageiros.json",{encoding:"utf-8"}))
     } catch (e) {
@@ -107,11 +107,10 @@ app.get("/estatisticas",async (req,res)=>{
         return t + p.diasq;
     },0)
     obj.totalEsp= obj.totalPass * evento.valorDia
-
-  for (var i = 0; i < listadias.length; i++) {
+    for (var i = 0; i < listadias.length; i++) {
         let diaRef = listadias[i].split("-").at(1)
         if (!obj.geral[diaRef]) {
-          obj.geral[diaRef]=[]  
+            obj.geral[diaRef]=[]  
         }
         obj.geral[diaRef]=pessoas.filter((dia)=>{
             return dia.diass.includes(diaRef)
@@ -120,7 +119,7 @@ app.get("/estatisticas",async (req,res)=>{
     
    // console.log(pessoas)
     //console.log(listadias)
-    console.log(obj.geral)
+    //console.log(obj.geral)
     res.render("estatisticas",{
         titulo:"ESTATISTICAS",
         dados:obj,
@@ -223,6 +222,7 @@ app.post('/editpassageiro/:id', async (req,res)=>{
     let total =0
     pessoa.nome= req.body.nome;
     pessoa.rg=req.body.rg
+    pessoa.obs= req.body.obs || ""
     if (!req.body.pags) {pessoa.pags=[]}
     if (typeof req.body.pags == "string") {
         pessoa.pags= [req.body.pags]

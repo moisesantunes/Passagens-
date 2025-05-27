@@ -4,7 +4,6 @@
 
 <h1 class="w3-center">Editar Passageiro</h1>
 <hr>
-<br>
 <section class="w3-container">
     <form method="post" action="/editpassageiro/<%= pessoa.id %>">
         <p>
@@ -42,6 +41,8 @@
 	
         </div>
         <br>
+        <textarea style="width:100%" id="obs" name="obs" rows="4" cols="40" placeholder="Inserir texto"><% if(pessoa.obs){ %><%= pessoa.obs %><% } %></textarea>
+        
         <button class="w3-button w3-asphalt">Salvar</button>
     </form>
 </section>
