@@ -239,6 +239,7 @@ app.post('/editpassageiro/:id', async (req,res)=>{
     pessoa.total=total
     pessoa.diasq=0
     pessoa.diasd=[]
+    pessoa.diass=""
     if (typeof req.body.diasd=="string") {
         pessoa.diasd=[req.body.diasd]
         pessoa.diasq=pessoa.diasd.length
