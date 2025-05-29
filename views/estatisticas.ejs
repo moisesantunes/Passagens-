@@ -4,7 +4,7 @@
 <br>
 
 <section class="w3-container">
-    <h3 class="w3-border-bottom">Número de pessoas:<span style="margin-right:0.25em;color:red; float:right"><%= dados.pessoas %></span></h3>
+    <h3 class="w3-border-bottom w3-text-asphalt">Número de pessoas:<span style="margin-right:0.25em;color:red; float:right"><%= dados.pessoas %></span></h3>
     <h3 class="w3-border-bottom">Total de passagens:<span style="margin-right:0.25em;color:red; float:right"><%= dados.totalPass %></span></h3>
     <h3 class="w3-border-bottom">Total Esperado:<span style="margin-right:0.25em;color:red; float:right"><%= dados.totalEsp %></span></h3>
     <h3 class="w3-border-bottom">Total Recebido:<span style="margin-right:0.25em;color:red; float:right"><%= dados.totalRec %></span></h3>
@@ -16,8 +16,8 @@
     <h3 class="w3-center">Passageiros</h3>
 <div>
     <% for(let prop in dados.geral){ %>
-        <h4><%= prop %>:</h4>
-        <section>
+        <button onclick="acordion('<%= prop %>')" class="w3-button w3-block w3-left-align w3-asphalt"><%= prop %>:</button>
+        <section id="<%= prop %>" class="w3-container w3-hide">
             <% dados.geral[prop].forEach((item) => { %>
                 <p><%= item.nome %></p>
             <% }); %>
@@ -28,7 +28,7 @@
     
 </div>
 </section>
-
+<p class="w3-center w3-red">-//-</p>
 
 <%/*%>
 -‐------‐----‐----‐----‐----‐----‐----‐----‐
@@ -53,5 +53,13 @@
 
 
 <script>
-    alert()
+    function acordion(id) {
+        alert()
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
 </script>
