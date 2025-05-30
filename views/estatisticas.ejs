@@ -18,6 +18,7 @@
     <% for(let prop in dados.geral){ %>
         <button onclick="acordion('<%= prop %>')" class="w3-button w3-block w3-left-align w3-asphalt"><%= prop %>:</button>
         <section id="<%= prop %>" class="w3-container w3-hide">
+           <p class="w3-border-bottom w3-border-red">Numero de passagens: <%= dados.geral[prop].length%></p> 
             <% dados.geral[prop].forEach((item) => { %>
                 <p><%= item.nome %></p>
             <% }); %>
@@ -54,7 +55,7 @@
 
 <script>
     function acordion(id) {
-        alert()
+        
   var x = document.getElementById(id);
   if (x.className.indexOf("w3-show") == -1) {
     x.className += " w3-show";
