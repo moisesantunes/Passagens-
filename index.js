@@ -101,23 +101,33 @@ app.get("/estatisticas",async (req,res)=>{
     } 
     obj.pessoas=pessoas.length
     obj.totalRec= pessoas.reduce((t,p)=>{
+        if(p.total==undefined){p.total =0}
+        console.log(p.total)
+        
         return t + p.total;
     },0)
     obj.totalPass= pessoas.reduce((t,p)=>{
         return t + p.diasq;
     },0)
     obj.totalEsp= obj.totalPass * evento.valorDia
-    for (var i = 0; i < listadias.length; i++) {
+  console.log(listadias) 
+
+ for (var i = 0; i < listadias.length; i++) {
         let diaRef = listadias[i].split("-").at(1)
-        if (!obj.geral[diaRef]) {
+       
+       console.log(diaRef)
+       if (!obj.geral[diaRef]) {
             obj.geral[diaRef]=[]  
         }
+        
         obj.geral[diaRef]=pessoas.filter((dia)=>{
-            return dia.diass.includes(diaRef)
+           console.log(dia)
+           return dia.diass.includes(diaRef)
         })
+        
   }
-    
-   // console.log(pessoas)
+  
+    console.log(obj)
     //console.log(listadias)
     //console.log(obj.geral)
     res.render("estatisticas",{
@@ -258,6 +268,8 @@ app.post('/editpassageiro/:id', async (req,res)=>{
 })
 
 
-app.listen(port, () => {})
+app.listen(port, () => {
+console.log("Ta rodando")
+})
 	  
 
