@@ -266,7 +266,27 @@ app.post('/editpassageiro/:id', async (req,res)=>{
     pessoa.pagss=pessoa.pags.join(",")
     res.redirect("/passageiro/"+pessoa.id)
 })
-
+/// rota remover passageiro
+app.get("/remove/:id", async (req,res)=>{
+    if (req.params.id == undefined) {
+      res.redirect("/")  
+    }
+    let pessoa;
+    try {
+        let pessoas = JSON.parse(await fs.readFile("passageiros.json",{encoding:"utf-8"}))
+        pessoa = pessoas.filter((item)=>item.id !=req.params.id)
+    } catch (e) {
+        console.log(e)
+    }
+     try {
+        await fs.writeFile("passageiros.json",JSON.stringify(pessoa))
+    } catch (e) {
+        console.log("nao foi possivel escrever--" , e)
+    }
+    console.log(pessoa)
+res.redirect("/passageiros")
+})
+///
 
 app.listen(port, () => {
 console.log("Ta rodando")
